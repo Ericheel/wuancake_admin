@@ -36,6 +36,14 @@ public class WeekNumUtils {
         return (int) ((new Date().getTime() - FIRST_DAY.getTime()) / (7 * 24 * 60 * 60 * 1000)) - 1;
     }
 
+    /**
+     * 获取处于保护期的那一周周数
+     *
+     * @return
+     */
+    public static Integer getProtectedWeek(Date time2Wuanlife) {
+        return (int) (((time2Wuanlife.getTime()) - FIRST_DAY.getTime()) / (7 * 24 * 60 * 60 * 1000));
+    }
 
     public static Boolean isProtected(Date time2Wuanlife) {
         /**

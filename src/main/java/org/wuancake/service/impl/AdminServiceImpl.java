@@ -3,10 +3,7 @@ package org.wuancake.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.wuancake.dao.AdminMapper;
-import org.wuancake.entity.AdminBean;
-import org.wuancake.entity.TutorBean;
-import org.wuancake.entity.UserBean;
-import org.wuancake.entity.UserGroupBean;
+import org.wuancake.entity.*;
 import org.wuancake.service.IAdminService;
 
 import java.util.List;
@@ -17,11 +14,6 @@ public class AdminServiceImpl implements IAdminService {
     @Autowired
     private AdminMapper adminMapper;
 
-
-    @Override
-    public AdminBean findAdminByEmailAndPassword(String email, String password) {
-        return adminMapper.findAdminByEmailAndPassword(email, password);
-    }
 
     @Override
     public void addTutor(TutorBean tutor) {
@@ -40,7 +32,22 @@ public class AdminServiceImpl implements IAdminService {
     }
 
     @Override
-    public List<UserGroupBean> queryAllUserBeKicked() {
-        return adminMapper. queryAllUserBeKicked();
+    public Integer queryAllUserNumBeKicked() {
+        return adminMapper.queryAllUserNumBeKicked();
+    }
+
+    @Override
+    public AdminBean findAdminByEmail(String email) {
+        return adminMapper.findAdminByEmail(email);
+    }
+
+    @Override
+    public void updatePwd(Integer id, String generate) {
+        adminMapper.updatePwd(id, generate);
+    }
+
+    @Override
+    public List<KickBean> queryUserListBeKicked(Integer startIndex, Integer pageSize) {
+        return adminMapper.queryUserListBeKicked(startIndex, pageSize);
     }
 }

@@ -16,19 +16,27 @@ public class PageBean implements Serializable {
     private Integer totalPage;
     private Integer pageSize;
     private Integer totalSize;
+    private Integer weekNum;
+    private List<KickBean> kickBeanList = new ArrayList<>();
+
+    public List<KickBean> getKickBeanList() {
+        return kickBeanList;
+    }
+
+    public void setKickBeanList(List<KickBean> kickBeanList) {
+        this.kickBeanList = kickBeanList;
+    }
 
     private List<GatherBean> gathers = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "PageBean{" +
-                "currPage=" + currPage +
-                ", totalPage=" + totalPage +
-                ", pageSize=" + pageSize +
-                ", totalSize=" + totalSize +
-                ", gathers=" + gathers +
-                '}';
+    public Integer getWeekNum() {
+        return weekNum;
     }
+
+    public void setWeekNum(Integer weekNum) {
+        this.weekNum = weekNum;
+    }
+
 
     public Integer getCurrPage() {
         return currPage;

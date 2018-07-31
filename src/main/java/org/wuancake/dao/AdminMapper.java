@@ -1,15 +1,8 @@
 package org.wuancake.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
-import org.wuancake.entity.AdminBean;
-import org.wuancake.entity.TutorBean;
-import org.wuancake.entity.UserBean;
-import org.wuancake.entity.UserGroupBean;
+import org.wuancake.entity.*;
 
 import java.util.List;
 
@@ -20,16 +13,6 @@ import java.util.List;
 @Mapper
 @CacheConfig(cacheNames = "adminCaches")
 public interface AdminMapper {
-
-    /**
-     * 通过邮箱和密码查找admin是否存在
-     *
-     * @param email    邮箱
-     * @param password 密码
-     * @return AdminBean
-     */
-    @Select("select * from adm where email=#{email} and password=#{password}")
-    AdminBean findAdminByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
     /**
      * 添加导师
@@ -59,6 +42,25 @@ public interface AdminMapper {
             "values(null,#{username},#{email},#{password},#{auth},#{groupId})")
     void addAdmin(AdminBean adminBean);
 
-    @Select("select * from user_group where deleteFlg = 1")
-    List<UserGroupBean> queryAllUserBeKicked();
+    @Select("select group_name,user_name,QQ,headsman,ug.modify_time " +
+            "from wa_group wg,user u,user_group ug " +
+            "where ug.deleteFlg = 1 " +
+            "and ug.user_id = u.id " +
+            "and ug.group_id = wg.id " +
+            "limit #{startIndex},#{pageSize}")
+    List<KickBean> queryUserListBeKicked(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize);
+
+    @Select("select count(user_id) " +
+            "from user_group " +
+            "where deleteFlg = 1")
+    Integer queryAllUserNumBeKicked();
+
+    @Select("select * from adm " +
+            "where email = #{email}")
+    AdminBean findAdminByEmail(@Param("email") String email);
+
+    @Update("update adm " +
+            "set password = #{generate} " +
+            "where id = #{id}")
+    void updatePwd(@Param("id") Integer id, @Param("generate") String generate);
 }

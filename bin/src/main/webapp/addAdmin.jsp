@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: kellen
+  User: Ericheel
   Date: 2018/5/24
   Time: 17:33
   To change this template use File | Settings | File Templates.
@@ -9,32 +9,33 @@
 <html>
 <head>
     <title>添加管理员</title>
+    <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.css">
-    <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript">
-        function sureAdd() {
-            $("#bad").html("");
-            $("#good").html("");
-            var v2 = $("#email").val();
-            var v3 = $("#username").val();
-            var v4 = $("#password").val();
-            if (v2 == "" || v3 == "" || v4 == "") {
-                $("#bad").append("昵称 邮箱 密码都填写了吗")
-            } else {
-                var flg = confirm("确定添加?");
-                if (flg) {
-                    $("#group").val($("#groups").find($("option:selected")).val());
-                    $("#sub").submit();
-                }
+</head>
+<body>
+<script type="text/javascript">
+    function sureAdd() {
+        $("#bad").html("");
+        $("#good").html("");
+        var v2 = $("#email").val();
+        var v3 = $("#username").val();
+        var v4 = $("#password").val();
+        if (v2 == "" || v3 == "" || v4 == "") {
+            $("#bad").append("昵称 邮箱 密码都填写了吗")
+        } else {
+            var flg = confirm("确定添加?");
+            if (flg) {
+                $("#group").val($("#groups").find($("option:selected")).val());
+                $("#sub").submit();
             }
         }
-    </script>
-</head>
-<body background="${pageContext.request.contextPath}/img/bg1.png">
+    }
+
+</script>
 <jsp:include page="guide.jsp"/>
-<div class="container">
+<div class="container-fluid">
     <form id="sub" action="${pageContext.request.contextPath}/addAdmin" method="post">
         <input type="hidden" name="groupId" id="group"/>
         <div style="margin-top: 120px" class="container">
@@ -47,8 +48,6 @@
                 </div>
                 <div class="col-lg-4"></div>
             </div>
-
-
             <br>
             <div class="row">
                 <div class="col-lg-4"></div>
@@ -66,7 +65,7 @@
                 <div class="col-lg-4"></div>
                 <div class="col-lg-4 input-group">
                     <font color="#6495ed" size="3">密码:</font><input id="password" name="password" placeholder="密码"
-                                                                    type="text"
+                                                                    type="password"
                                                                     class="form-control">
                 </div>
                 <div class="col-lg-4"></div>
@@ -95,5 +94,6 @@
     </form>
 </div>
 </body>
+
 </html>
 

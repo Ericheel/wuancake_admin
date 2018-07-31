@@ -1,14 +1,10 @@
 package org.wuancake.service;
 
-import org.wuancake.entity.AdminBean;
-import org.wuancake.entity.TutorBean;
-import org.wuancake.entity.UserBean;
-import org.wuancake.entity.UserGroupBean;
+import org.wuancake.entity.*;
 
 import java.util.List;
 
 public interface IAdminService {
-    AdminBean findAdminByEmailAndPassword(String email, String password);
 
     void addTutor(TutorBean tutor);
 
@@ -16,5 +12,11 @@ public interface IAdminService {
 
     void addAdmin(AdminBean adminBean);
 
-    List<UserGroupBean> queryAllUserBeKicked();
+    Integer queryAllUserNumBeKicked();
+
+    AdminBean findAdminByEmail(String email);
+
+    void updatePwd(Integer id, String generate);
+
+    List<KickBean> queryUserListBeKicked(Integer startIndex, Integer pageSize);
 }
